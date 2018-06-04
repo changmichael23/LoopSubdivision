@@ -72,7 +72,7 @@ std::vector<Point> createRandomPoints(int n)
 {
 	std::vector<Point> tmp;
 
-	for (int i = 0; i < 50; i++)
+	for (int i = 0; i < n; i++)
 	{
 		tmp.push_back(Point(RandomFloat(-500,500), RandomFloat(-500, 500), RandomFloat(-500, 500), 0, 0, 0));
 		

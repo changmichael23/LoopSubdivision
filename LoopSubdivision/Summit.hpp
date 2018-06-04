@@ -1,27 +1,38 @@
 
 
+class Face;
+class Edge;
+
+#include "Face.hpp"
 #include "Edge.hpp"
 class Summit {
 	// each point connected to edges
 private:
 	Point point;
 
+	std::vector<Face *> *facesConnected;
 	std::vector<Edge*> * edgesConnected;
 	Colore color;
 
 public:
 	Summit() {
+		facesConnected = new std::vector<Face *>();
 		edgesConnected = new std::vector<Edge*>();
 	}
 	Summit(Point p)
 	{
 		point = p;
+		facesConnected = new std::vector<Face *>();
 		edgesConnected = new std::vector<Edge*>();
 	}
+		
 	Summit(Colore c, Point p)
 	{
 		color = c;
 		point = p;
+		facesConnected = new std::vector<Face *>();
+		edgesConnected = new std::vector<Edge*>();
+	
 	}
 
 	Summit(Colore c, std::vector<Edge*> *e, Point p)
@@ -30,6 +41,8 @@ public:
 
 		edgesConnected = e;
 		point = p;
+		facesConnected = new std::vector<Face *>();
+	
 	}
 
 	void setPoint(const Point & p)
@@ -61,5 +74,8 @@ public:
 	{
 		return edgesConnected;
 	}
-
+	std::vector<Face *> * getFacesConnected()
+	{
+		return facesConnected;
+	}
 };

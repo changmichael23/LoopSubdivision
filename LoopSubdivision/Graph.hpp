@@ -24,7 +24,7 @@ public:
 	{
 		summitList = s;
 	}
-	std::vector<Summit*> * getSummitList()
+	std::vector<Summit*> * getSummitList() const
 	{
 		return summitList;
 	}
@@ -73,5 +73,91 @@ public:
 
 			}
 		}
+	}
+
+	static Graph* duplicateGraph(const Graph & graph)
+	{
+		Graph* duplicatedGraph = new Graph();
+
+		std::vector<Face *> *tmpFaceList = new std::vector<Face *>();
+		std::vector<Edge *> *tmpEdgeList = new std::vector<Edge *>();
+		std::vector<Summit *> *tmpSummitList = new std::vector<Summit *>();
+
+		for (unsigned i = 0; i < graph.getSummitList()->size(); ++i)
+		{
+			
+			Summit* summit = graph.getSummitList()->at(i);
+
+			tmpSummitList->push_back(summit);
+
+
+			for (unsigned j = 0; j < summit->getEdgesConnected()->size(); ++j)
+			{
+				Edge * edge = summit->getEdgesConnected()->at(j);
+
+				std::vector<Edge *>::iterator iteEdge = (std::find(tmpEdgeList->begin(), tmpEdgeList->end(), edge));
+				if (iteEdge != tmpEdgeList->end())  //if found
+				{
+					//tmpEdgeList->at(iteEdge - tmpEdgeList->begin())->getSummitConnected()->push_back(summit); //achtung
+					edge = tmpEdgeList->at(iteEdge - tmpEdgeList->begin());
+					for (unsigned k = 0; k < edge->getFacesConnected()->size(); k++)
+					{
+						Face * face = edge->getFacesConnected()->at(k);
+						
+						std::vector<Summit *>::iterator iteSummit = std::find(face->getSummitsConnected()->begin(), face->getSummitsConnected()->end(), summit);
+						if (iteSummit == face->getSummitsConnected()->end())
+						{
+							summit->getFacesConnected()->push_back(face);
+							face->getSummitsConnected()->push_back(summit);
+						}
+						
+					}
+				}
+				else
+				{
+					tmpEdgeList->push_back(edge);
+
+					for (unsigned k = 0; k < edge->getFacesConnected()->size(); k++)
+					{
+						Face * face = edge->getFacesConnected()->at(k);
+						std::vector<Face *>::iterator iteFace = (std::find(tmpFaceList->begin(), tmpFaceList->end(), face));
+						if (iteFace != tmpFaceList->end()) // if found
+						{
+							tmpFaceList->at(iteFace - tmpFaceList->begin())->getEdgesConnected()->push_back(edge);
+
+						}
+						else
+						{
+							face->getEdgesConnected()->push_back(edge);
+							tmpFaceList->push_back(face);
+
+						}
+						 
+						std::vector<Summit *>::iterator iteSummit = std::find(face->getSummitsConnected()->begin(), face->getSummitsConnected()->end(), summit);
+						if (iteSummit == face->getSummitsConnected()->end())
+						{
+							summit->getFacesConnected()->push_back(face);
+							face->getSummitsConnected()->push_back(summit);
+						}
+					}
+					
+
+				}
+				edge->getSummitsConnected()->push_back(summit);
+				
+
+			}
+
+		}
+
+
+		duplicatedGraph->summitList = tmpSummitList;
+		duplicatedGraph->edgeList = tmpEdgeList;
+		duplicatedGraph->faceList = tmpFaceList;
+
+		duplicatedGraph->summitList->at(0)->getFacesConnected()->at(0)->setColor(Colore::blue);
+
+
+		return duplicatedGraph;
 	}
 };

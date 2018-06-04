@@ -1,32 +1,38 @@
 #pragma once
-#include "Face.hpp"
+
+
+class Summit;
+class Face;
+
 #include <vector>
+
+
+
 class Edge
 {
 private:
-
-	std::vector<Face*> * faceConnected = new std::vector<Face*>();
+	std::vector<Summit*> *summitsConnected = new std::vector<Summit*>();
+	std::vector<Face*> * facesConnected = new std::vector<Face*>();
 	Colore color;
 	std::vector<Point> points;
 
 public:
 	Edge() {
 	
-		faceConnected = new std::vector<Face*>();
 	}
 	Edge(Colore c, std::vector<Face*> *f)
 	{
 		color = c;
-		faceConnected = f;
+		facesConnected = f;
 	}
 	Edge(std::vector<Face*> *f, std::vector<Point> p)
 	{
-		faceConnected = f;
+		facesConnected = f;
 		points = p;
 	}
 	Edge(std::vector<Point> p)
 	{
-		faceConnected = new std::vector<Face*>();
+		facesConnected = new std::vector<Face*>();
 		points = p;
 	}
 	void setColor(const Colore & c)
@@ -39,12 +45,17 @@ public:
 	}
 	void setFacesConnected(std::vector<Face*> * f)
 	{
-		faceConnected = f;
+		facesConnected = f;
 	}
 	std::vector<Face*> * getFacesConnected()
 	{
-		return faceConnected;
+		return facesConnected;
 	}
+	std::vector<Summit*> * getSummitsConnected()
+	{
+		return summitsConnected;
+	}
+
 	std::vector<Point>& getPoints()
 	{
 		return points;

@@ -75,10 +75,7 @@ float * structToTabColor(std::vector<Point> newPoints, std::vector<Colore> c)
 			tabP[i + 7] = RandomFloat(0, 1);
 			tabP[i + 8] = RandomFloat(0, 1);
 		}
-		/*
-		tabP[i + 6] = 0;
-		tabP[i + 7] = 1;
-		tabP[i + 8] = 0;*/
+
 		j++;
 	}
 
@@ -95,7 +92,7 @@ bool Initialize()
 	colore[2] = 1.0;
 	colore[3] = 1.0;
 
-	std::vector<Point> centerPoints3D = createRandomPoints(10);
+	std::vector<Point> centerPoints3D = createRandomPoints(4);
 
 	Graph * tmpGraph = new Graph();
 	EnvInc testEnv = *new EnvInc(tmpGraph,centerPoints3D);
@@ -114,6 +111,10 @@ bool Initialize()
 
 	}
 	
+
+	Graph::duplicateGraph(*testEnv.getGraph());
+
+
 	std::vector<Colore> tmpColore;
 	
 	p3D = transformPointsToCube(centerPoints3D);
