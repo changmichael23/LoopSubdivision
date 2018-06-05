@@ -98,23 +98,27 @@ bool Initialize()
 	EnvInc testEnv = *new EnvInc(tmpGraph,centerPoints3D);
 	testEnv.initializeGraph();
 	testEnv.algo();
-	tmpFace = testEnv.getGraph()->getFaceList();
-
+	//tmpFace = testEnv.getGraph()->getFaceList();
+	
+	Graph * tmpGraph1 = Graph::duplicateGraph(*testEnv.getGraph());
+	
+	Graph tmpGraph2 = Loop::LoopSubdivision(*tmpGraph1);
+	tmpFace = tmpGraph2.getFaceList();
 	for (int i = 0; i < tmpFace->size(); i++)
 	{
-		tmpVectorPoints.push_back(tmpFace->at(i)->getPoints()[0]);
+		tmpVectorPoints.push_back(tmpFace->at(i)->getSummitsConnected()->at(0)->getPoint());
 		col.push_back(tmpFace->at(i)->getColor());
-		tmpVectorPoints.push_back(tmpFace->at(i)->getPoints()[1]);
+		tmpVectorPoints.push_back(tmpFace->at(i)->getSummitsConnected()->at(1)->getPoint());
 		col.push_back(tmpFace->at(i)->getColor());
-		tmpVectorPoints.push_back(tmpFace->at(i)->getPoints()[2]);
+		tmpVectorPoints.push_back(tmpFace->at(i)->getSummitsConnected()->at(2)->getPoint());
 		col.push_back(tmpFace->at(i)->getColor());
 
 	}
 	
 
-	Graph::duplicateGraph(*testEnv.getGraph());
+	
 
-
+	centerPoints3D = tmpVectorPoints;
 	std::vector<Colore> tmpColore;
 	
 	p3D = transformPointsToCube(centerPoints3D);

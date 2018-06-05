@@ -37,6 +37,28 @@ struct Point {
 		}
 		return false;
 	}
+	 
+	Point operator+(const Point &p1)
+	{
+		Point p;
+		
+		p.x = x + p1.x;
+		p.y = y + p1.y;
+		p.z = z + p1.z;
+
+		return p;
+	}
+
+	friend Point operator*(float f, const Point &p1)
+	{
+		Point p;
+
+		p.x = f * p1.x;
+		p.y = f * p1.y;
+		p.z = f * p1.z;
+
+		return p;
+	}
 
 	std::string toString()
 	{
@@ -120,5 +142,4 @@ std::vector<Point> transformPointsToCube(std::vector<Point> p)
 	return tmp;
 
 }
-
 

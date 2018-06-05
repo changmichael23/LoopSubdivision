@@ -78,4 +78,27 @@ public:
 	{
 		return facesConnected;
 	}
+
+	static Summit* GetOppositeSummit(Edge* e, Face* f)
+	{
+		for (int i = 0; i < f->getSummitsConnected()->size(); ++i)
+		{
+			if (f->getSummitsConnected()->at(i) != e->getSummitsConnected()->at(0)
+				&& f->getSummitsConnected()->at(i) != e->getSummitsConnected()->at(1))
+			{
+				return f->getSummitsConnected()->at(i);
+			}
+		}
+
+		return nullptr;
+	}
+
+	static Summit* GetOppositeSummit(Summit* s, Edge* e)
+	{
+		if (e->getSummitsConnected()->at(0) != s)
+		{
+			return e->getSummitsConnected()->at(0);
+		}
+		return e->getSummitsConnected()->at(1);
+	}
 };

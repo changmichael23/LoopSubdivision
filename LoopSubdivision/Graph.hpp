@@ -32,7 +32,7 @@ public:
 	{
 		faceList = f;
 	}
-	std::vector<Face*> * getFaceList()
+	std::vector<Face*> * getFaceList() const
 	{
 		return faceList;
 	}
@@ -40,7 +40,7 @@ public:
 	{
 		edgeList = e;
 	}
-	std::vector<Edge*> * getEdgeList()
+	std::vector<Edge*> * getEdgeList() const
 	{
 		return edgeList;
 	}

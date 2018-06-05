@@ -169,6 +169,7 @@
     <ClInclude Include="EnvInc.hpp" />
     <ClInclude Include="Face.hpp" />
     <ClInclude Include="Graph.hpp" />
+    <ClInclude Include="Loop.hpp" />
     <ClInclude Include="Point.hpp" />
     <ClInclude Include="Summit.hpp" />
   </ItemGroup>
