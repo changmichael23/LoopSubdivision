@@ -43,6 +43,8 @@ float colore[4];
 std::vector<Face*> *tmpFace = new std::vector<Face*>();
 std::vector<Colore> col;
 
+Graph* currentGraph;
+
 float * structToTabColor(std::vector<Point> newPoints, std::vector<Colore> c)
 {
 	float* tabP = new float[newPoints.size() * 9];
@@ -83,6 +85,104 @@ float * structToTabColor(std::vector<Point> newPoints, std::vector<Colore> c)
 }
 
 
+void SpecialInput(int key, int x, int y)
+{
+	switch (key)
+	{
+	case GLUT_KEY_UP:
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		break;
+	case GLUT_KEY_DOWN:
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		break;
+	case GLUT_KEY_RIGHT:
+		*currentGraph = Loop::LoopSubdivision(*currentGraph);
+		tmpFace = currentGraph->getFaceList();
+
+		tmpVectorPoints.clear();
+		for (int i = 0; i < tmpFace->size(); i++)
+		{
+			tmpVectorPoints.push_back(tmpFace->at(i)->getSummitsConnected()->at(0)->getPoint());
+			col.push_back(tmpFace->at(i)->getColor());
+			tmpVectorPoints.push_back(tmpFace->at(i)->getSummitsConnected()->at(1)->getPoint());
+			col.push_back(tmpFace->at(i)->getColor());
+			tmpVectorPoints.push_back(tmpFace->at(i)->getSummitsConnected()->at(2)->getPoint());
+			col.push_back(tmpFace->at(i)->getColor());
+
+			/*tmpVectorPoints.push_back(tmpFace->at(i)->getPoints()[0]);
+			col.push_back(tmpFace->at(i)->getColor());
+			tmpVectorPoints.push_back(tmpFace->at(i)->getPoints()[1]);
+			col.push_back(tmpFace->at(i)->getColor());
+			tmpVectorPoints.push_back(tmpFace->at(i)->getPoints()[2]);
+			col.push_back(tmpFace->at(i)->getColor());*/
+
+		}
+		std::vector<Point> centerPoints3D;
+		centerPoints3D = tmpVectorPoints;
+		std::vector<Colore> tmpColore;
+
+		p3D = transformPointsToCube(centerPoints3D);
+
+		for (int i = 0; i < p3D.size(); i++)
+		{
+			tmpColore.push_back(Colore(red));
+		}
+
+		tabPoints = structToTabColor(p3D, tmpColore);
+
+		indi = createInd(centerPoints3D.size() * 24);
+		indTmp = createInd(tmpVectorPoints.size());
+		tmpPoints = structToTabColor(tmpVectorPoints, col);
+
+		glewInit();
+		g_BasicShader.LoadVertexShader("basic.vs");
+		g_BasicShader.LoadFragmentShader("basic.fs");
+		g_BasicShader.CreateProgram();
+
+		glGenTextures(1, &TexObj);
+		glBindTexture(GL_TEXTURE_2D, TexObj);
+		int w, h, c; //largeur, hauteur et # de composantes du fichier
+
+					 //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); //GL_NEAREST)
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+		glGenVertexArrays(1, &VBO0); // Créer le VAO
+		glBindVertexArray(VBO0); // Lier le VAO pour l'utiliser
+		glEnableVertexAttribArray(0);
+
+
+		//glGenBuffers(1, &VBO0);
+
+		glBindBuffer(GL_ARRAY_BUFFER, VBO0);
+		glBufferData(GL_ARRAY_BUFFER, p3D.size() * 9 * sizeof(float), tabPoints, GL_STATIC_DRAW);
+		//---
+		glGenVertexArrays(1, &VBO1); // Créer le VAO
+		glBindVertexArray(VBO1); // Lier le VAO pour l'utiliser
+		glEnableVertexAttribArray(0);
+
+
+		//glGenBuffers(1, &VBO0);
+
+		glBindBuffer(GL_ARRAY_BUFFER, VBO1);
+		glBufferData(GL_ARRAY_BUFFER, tmpVectorPoints.size() * 9 * sizeof(float), tmpPoints, GL_STATIC_DRAW);
+
+		// rendu indexe
+		glGenBuffers(1, &IBO);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, p3D.size() * sizeof(GLushort), indi, GL_STATIC_DRAW);
+		glGenBuffers(1, &IBO1);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO1);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, tmpVectorPoints.size() * sizeof(GLushort), indTmp, GL_STATIC_DRAW);
+
+		// le fait de specifier 0 comme BO desactive l'usage des BOs
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		break;
+
+	}
+	glutPostRedisplay();
+}
 
 
 bool Initialize()
@@ -102,15 +202,30 @@ bool Initialize()
 
 
 	// Cube 
-	centerPoints3D.push_back(Point(-250, -250, 0));
+	/*centerPoints3D.push_back(Point(-250, -250, 0));
 	centerPoints3D.push_back(Point(-251, +250, 2));
 	centerPoints3D.push_back(Point(+250, -252, 1));
 	centerPoints3D.push_back(Point(250, 255, 3));
 	centerPoints3D.push_back(Point(-252, -253, -504));
 	centerPoints3D.push_back(Point(-250, +256, -503));
 	centerPoints3D.push_back(Point(+251, -253, -502));
-	centerPoints3D.push_back(Point(254, 252, -501));
+	centerPoints3D.push_back(Point(254, 252, -501));*/
 
+	// Tetraede
+	/*float X = 250.0f;
+	float Z = 250.0f;
+	centerPoints3D.push_back(Point{ -X+0.05f, 0, Z + 0.05f });
+	centerPoints3D.push_back(Point{ X-0.05f, 0.05f, Z });
+	centerPoints3D.push_back(Point{ -X, 0, -Z + 0.07f });
+	centerPoints3D.push_back(Point{ X+ 0.1f, 0.2f, -Z });
+	centerPoints3D.push_back(Point{ 0, Z + 0.1f, X - 0.3f });
+	centerPoints3D.push_back(Point{ 0+ 0.05f, Z, -X+0.02f });
+	centerPoints3D.push_back(Point{ 0+ 0.15f, -Z, X });
+	centerPoints3D.push_back(Point{ 0, -Z+ 0.08f, -X });
+	centerPoints3D.push_back(Point{ Z+ 0.25f, X, 0 });
+	centerPoints3D.push_back(Point{ -Z, X, 0+ 0.23f });
+	centerPoints3D.push_back(Point{ Z, -X+ 0.5f, 0 });
+	centerPoints3D.push_back(Point{ -Z + 0.15f, -X, 0 });*/
 
 	Graph * tmpGraph = new Graph();
 	EnvInc testEnv = *new EnvInc(tmpGraph,centerPoints3D);
@@ -118,15 +233,17 @@ bool Initialize()
 	testEnv.algo();
 	tmpFace = testEnv.getGraph()->getFaceList();
 	
-	Graph * tmpGraph1 = Graph::duplicateGraph(*testEnv.getGraph());
-	//tmpFace = tmpGraph1->getFaceList();
-	Graph tmpGraph2 = Loop::LoopSubdivision(*tmpGraph1);
-	//tmpFace = tmpGraph2.getFaceList();
+	currentGraph = Graph::duplicateGraph(*testEnv.getGraph());
+	tmpFace = currentGraph->getFaceList();
+	/*Graph tmpGraph2 = Loop::LoopSubdivision(*tmpGraph1);
+	tmpFace = tmpGraph2.getFaceList();
 
 
 
 	Graph tmpGraph4 = Loop::LoopSubdivision(tmpGraph2);
-	tmpFace = tmpGraph4.getFaceList();
+	tmpFace = tmpGraph4.getFaceList();*/
+
+	
 
 	for (int i = 0; i < tmpFace->size(); i++)
 	{
