@@ -9,6 +9,9 @@ c:\users\michael\desktop\loopsubdivision\loopsubdivision\edge.hpp(105): warning 
 c:\users\michael\desktop\loopsubdivision\loopsubdivision\summit.hpp(84): warning C4018: '<': signed/unsigned mismatch
 c:\users\michael\desktop\loopsubdivision\loopsubdivision\graph.hpp(51): warning C4018: '<': signed/unsigned mismatch
 c:\users\michael\desktop\loopsubdivision\loopsubdivision\graph.hpp(56): warning C4018: '<': signed/unsigned mismatch
+c:\users\michael\desktop\loopsubdivision\loopsubdivision\graph.hpp(185): warning C4018: '<': signed/unsigned mismatch
+c:\users\michael\desktop\loopsubdivision\loopsubdivision\graph.hpp(194): warning C4018: '<': signed/unsigned mismatch
+c:\users\michael\desktop\loopsubdivision\loopsubdivision\graph.hpp(231): warning C4018: '<': signed/unsigned mismatch
 c:\users\michael\desktop\loopsubdivision\loopsubdivision\loop.hpp(23): warning C4244: 'initializing': conversion from 'unsigned int' to 'float', possible loss of data
 c:\users\michael\desktop\loopsubdivision\loopsubdivision\loop.hpp(32): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 c:\users\michael\desktop\loopsubdivision\loopsubdivision\loop.hpp(168): warning C4018: '<': signed/unsigned mismatch
@@ -36,17 +39,18 @@ c:\users\michael\desktop\loopsubdivision\common\mat4.h(85): warning C4244: 'init
 c:\users\michael\desktop\loopsubdivision\common\mat4.h(86): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 c:\users\michael\desktop\loopsubdivision\common\mat4.h(112): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 c:\users\michael\desktop\loopsubdivision\loopsubdivision\main.cpp(52): warning C4018: '<': signed/unsigned mismatch
-c:\users\michael\desktop\loopsubdivision\loopsubdivision\main.cpp(103): warning C4018: '<': signed/unsigned mismatch
-c:\users\michael\desktop\loopsubdivision\loopsubdivision\main.cpp(126): warning C4018: '<': signed/unsigned mismatch
-c:\users\michael\desktop\loopsubdivision\loopsubdivision\main.cpp(144): warning C4101: 'c': unreferenced local variable
-c:\users\michael\desktop\loopsubdivision\loopsubdivision\main.cpp(144): warning C4101: 'h': unreferenced local variable
-c:\users\michael\desktop\loopsubdivision\loopsubdivision\main.cpp(144): warning C4101: 'w': unreferenced local variable
-c:\users\michael\desktop\loopsubdivision\loopsubdivision\main.cpp(248): warning C4018: '<': signed/unsigned mismatch
-c:\users\michael\desktop\loopsubdivision\loopsubdivision\main.cpp(274): warning C4018: '<': signed/unsigned mismatch
-c:\users\michael\desktop\loopsubdivision\loopsubdivision\main.cpp(292): warning C4101: 'c': unreferenced local variable
-c:\users\michael\desktop\loopsubdivision\loopsubdivision\main.cpp(292): warning C4101: 'h': unreferenced local variable
-c:\users\michael\desktop\loopsubdivision\loopsubdivision\main.cpp(292): warning C4101: 'w': unreferenced local variable
-c:\users\michael\desktop\loopsubdivision\loopsubdivision\main.cpp(401): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\michael\desktop\loopsubdivision\loopsubdivision\main.cpp(106): warning C4018: '<': signed/unsigned mismatch
+c:\users\michael\desktop\loopsubdivision\loopsubdivision\main.cpp(131): warning C4018: '<': signed/unsigned mismatch
+c:\users\michael\desktop\loopsubdivision\loopsubdivision\main.cpp(149): warning C4101: 'c': unreferenced local variable
+c:\users\michael\desktop\loopsubdivision\loopsubdivision\main.cpp(149): warning C4101: 'h': unreferenced local variable
+c:\users\michael\desktop\loopsubdivision\loopsubdivision\main.cpp(149): warning C4101: 'w': unreferenced local variable
+c:\users\michael\desktop\loopsubdivision\loopsubdivision\main.cpp(264): warning C4018: '<': signed/unsigned mismatch
+c:\users\michael\desktop\loopsubdivision\loopsubdivision\main.cpp(290): warning C4018: '<': signed/unsigned mismatch
+c:\users\michael\desktop\loopsubdivision\loopsubdivision\main.cpp(308): warning C4101: 'c': unreferenced local variable
+c:\users\michael\desktop\loopsubdivision\loopsubdivision\main.cpp(308): warning C4101: 'h': unreferenced local variable
+c:\users\michael\desktop\loopsubdivision\loopsubdivision\main.cpp(308): warning C4101: 'w': unreferenced local variable
+c:\users\michael\desktop\loopsubdivision\loopsubdivision\main.cpp(417): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\michael\desktop\loopsubdivision\loopsubdivision\graph.hpp(210): warning C4715: 'Graph::getRandomInsidePoint': not all control paths return a value
 c:\users\michael\desktop\loopsubdivision\loopsubdivision\envinc.hpp(485): warning C4715: 'EnvInc::getRandomInsidePoint': not all control paths return a value
   LoopSubdivision.vcxproj -> C:\Users\Michael\Desktop\LoopSubdivision\Debug\LoopSubdivision.exe
   LoopSubdivision.vcxproj -> C:\Users\Michael\Desktop\LoopSubdivision\Debug\LoopSubdivision.pdb (Full PDB)

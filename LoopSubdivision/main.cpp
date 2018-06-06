@@ -97,24 +97,29 @@ void SpecialInput(int key, int x, int y)
 		break;
 	case GLUT_KEY_RIGHT:
 		*currentGraph = Loop::LoopSubdivision(*currentGraph);
+		Graph::updateNormals(currentGraph);
 		tmpFace = currentGraph->getFaceList();
 
 		tmpVectorPoints.clear();
+
+
 		for (int i = 0; i < tmpFace->size(); i++)
 		{
-			tmpVectorPoints.push_back(tmpFace->at(i)->getSummitsConnected()->at(0)->getPoint());
+			/*tmpVectorPoints.push_back(tmpFace->at(i)->getSummitsConnected()->at(0)->getPoint());
 			col.push_back(tmpFace->at(i)->getColor());
 			tmpVectorPoints.push_back(tmpFace->at(i)->getSummitsConnected()->at(1)->getPoint());
 			col.push_back(tmpFace->at(i)->getColor());
 			tmpVectorPoints.push_back(tmpFace->at(i)->getSummitsConnected()->at(2)->getPoint());
-			col.push_back(tmpFace->at(i)->getColor());
+			col.push_back(tmpFace->at(i)->getColor());*/
 
-			/*tmpVectorPoints.push_back(tmpFace->at(i)->getPoints()[0]);
+
+
+			tmpVectorPoints.push_back(tmpFace->at(i)->getPoints()[0]);
 			col.push_back(tmpFace->at(i)->getColor());
 			tmpVectorPoints.push_back(tmpFace->at(i)->getPoints()[1]);
 			col.push_back(tmpFace->at(i)->getColor());
 			tmpVectorPoints.push_back(tmpFace->at(i)->getPoints()[2]);
-			col.push_back(tmpFace->at(i)->getColor());*/
+			col.push_back(tmpFace->at(i)->getColor());
 
 		}
 		std::vector<Point> centerPoints3D;
@@ -192,8 +197,8 @@ bool Initialize()
 	colore[2] = 1.0;
 	colore[3] = 1.0;
 
-	//std::vector<Point> centerPoints3D = createRandomPoints(50);
-	std::vector<Point> centerPoints3D;
+	std::vector<Point> centerPoints3D = createRandomPoints(20);
+	//std::vector<Point> centerPoints3D;
 	// Tetraede
 	/*centerPoints3D.push_back(Point(250, 0, 250));
 	centerPoints3D.push_back(Point(-250, 0, 250));
@@ -211,7 +216,7 @@ bool Initialize()
 	centerPoints3D.push_back(Point(+251, -253, -502));
 	centerPoints3D.push_back(Point(254, 252, -501));*/
 
-	// Tetraede
+	// Icosaedre
 	/*float X = 250.0f;
 	float Z = 250.0f;
 	centerPoints3D.push_back(Point{ -X+0.05f, 0, Z + 0.05f });
@@ -227,6 +232,17 @@ bool Initialize()
 	centerPoints3D.push_back(Point{ Z, -X+ 0.5f, 0 });
 	centerPoints3D.push_back(Point{ -Z + 0.15f, -X, 0 });*/
 
+	// T shape 3D
+	/*centerPoints3D.push_back(Point(-250, -250, 0));
+	centerPoints3D.push_back(Point(-251, +250, 2));
+	centerPoints3D.push_back(Point(+250, -252, 1));
+	centerPoints3D.push_back(Point(250, 255, 3));
+	centerPoints3D.push_back(Point(-252, -253, -04));
+	centerPoints3D.push_back(Point(-250, +256, -503));
+	centerPoints3D.push_back(Point(+251, -253, -502));
+	centerPoints3D.push_back(Point(254, 252, -501));*/
+
+	//
 	Graph * tmpGraph = new Graph();
 	EnvInc testEnv = *new EnvInc(tmpGraph,centerPoints3D);
 	testEnv.initializeGraph();
@@ -247,19 +263,19 @@ bool Initialize()
 
 	for (int i = 0; i < tmpFace->size(); i++)
 	{
-		tmpVectorPoints.push_back(tmpFace->at(i)->getSummitsConnected()->at(0)->getPoint());
+		/*tmpVectorPoints.push_back(tmpFace->at(i)->getSummitsConnected()->at(0)->getPoint());
 		col.push_back(tmpFace->at(i)->getColor());
 		tmpVectorPoints.push_back(tmpFace->at(i)->getSummitsConnected()->at(1)->getPoint());
 		col.push_back(tmpFace->at(i)->getColor());
 		tmpVectorPoints.push_back(tmpFace->at(i)->getSummitsConnected()->at(2)->getPoint());
-		col.push_back(tmpFace->at(i)->getColor());
+		col.push_back(tmpFace->at(i)->getColor());*/
 
-		/*tmpVectorPoints.push_back(tmpFace->at(i)->getPoints()[0]);
+		tmpVectorPoints.push_back(tmpFace->at(i)->getPoints()[0]);
 		col.push_back(tmpFace->at(i)->getColor());
 		tmpVectorPoints.push_back(tmpFace->at(i)->getPoints()[1]);
 		col.push_back(tmpFace->at(i)->getColor());
 		tmpVectorPoints.push_back(tmpFace->at(i)->getPoints()[2]);
-		col.push_back(tmpFace->at(i)->getColor());*/
+		col.push_back(tmpFace->at(i)->getColor());
 
 	}
 	

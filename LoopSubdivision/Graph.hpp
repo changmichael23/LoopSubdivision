@@ -160,4 +160,115 @@ public:
 
 		return duplicatedGraph;
 	}
+
+
+	std::vector<float> vectorialProduct(std::vector<float> f1, std::vector<float> f2)
+	{
+		if (f1.size() != 3 || f2.size() != 3)
+		{
+			std::cout << "Erreur taille produit vectoriel" << std::endl;
+			return f1;
+		}
+		else
+		{
+			std::vector<float> tmp;
+			tmp.push_back(f1[1] * f2[2] - f1[2] * f2[1]);
+			tmp.push_back(f1[2] * f2[0] - f1[0] * f2[2]);
+			tmp.push_back(f1[0] * f2[1] - f1[1] * f2[0]);
+			return tmp;
+		}
+	}
+
+	float scalarProduct(std::vector<float> f1, std::vector<float> f2)
+	{
+		float tmp = 0.0f;
+		for (int i = 0; i < f1.size(); i++)
+		{
+			tmp += f1[i] * f2[i];
+		}
+		return tmp;
+	}
+
+	Point getRandomInsidePoint(Face f)
+	{
+		for (int i = 0; i < getSummitList()->size(); i++)
+		{
+			bool isSame = false;
+			for (int j = 0; j < 3; j++)
+			{
+				if (getSummitList()->at(i)->getPoint().x == f.getPoints()[j].x && getSummitList()->at(i)->getPoint().y == f.getPoints()[j].y
+					&& getSummitList()->at(i)->getPoint().z == f.getPoints()[j].z)
+				{
+					isSame = true;
+				}
+			}
+			if (!isSame)
+			{
+				return getSummitList()->at(i)->getPoint();
+			}
+		}
+	}
+
+	static void updateNormals(Graph * graph)
+	{
+
+		for (unsigned i = 0; i < graph->getFaceList()->size(); ++i)
+		{
+			Face * tmpFace = graph->getFaceList()->at(i);
+			tmpFace->getPoints().clear();
+			std::vector<Point> tmpPoint = std::vector<Point>();
+			for (unsigned j = 0; j < 3; ++j)
+			{
+
+				
+				tmpPoint.push_back(tmpFace->getSummitsConnected()->at(j)->getPoint());
+					
+			}
+
+			tmpFace->setPoints(tmpPoint);
+		}
+
+		for (int i = 0; i < graph->getFaceList()->size(); i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+
+				std::vector<float> ab;
+				std::vector<float> ac;
+
+				ab.push_back(graph->getFaceList()->at(i)->getPoints()[(j + 1) % 3].x - graph->getFaceList()->at(i)->getPoints()[j].x);
+				ab.push_back(graph->getFaceList()->at(i)->getPoints()[(j + 1) % 3].y - graph->getFaceList()->at(i)->getPoints()[j].y);
+				ab.push_back(graph->getFaceList()->at(i)->getPoints()[(j + 1) % 3].z - graph->getFaceList()->at(i)->getPoints()[j].z);
+
+				ac.push_back(graph->getFaceList()->at(i)->getPoints()[(j + 2) % 3].x - graph->getFaceList()->at(i)->getPoints()[j].x);
+				ac.push_back(graph->getFaceList()->at(i)->getPoints()[(j + 2) % 3].y - graph->getFaceList()->at(i)->getPoints()[j].y);
+				ac.push_back(graph->getFaceList()->at(i)->getPoints()[(j + 2) % 3].z - graph->getFaceList()->at(i)->getPoints()[j].z);
+				std::vector<float> vectNormal = graph->vectorialProduct(ab, ac);
+
+
+				Point tmp = graph->getRandomInsidePoint(*graph->getFaceList()->at(i));
+				std::vector<float> f0;
+				f0.push_back(tmp.x - graph->getFaceList()->at(i)->getPoints()[j].x);
+				f0.push_back(tmp.y - graph->getFaceList()->at(i)->getPoints()[j].y);
+				f0.push_back(tmp.z - graph->getFaceList()->at(i)->getPoints()[j].z);
+
+				if (graph->scalarProduct(vectNormal, f0) > 0.0f)
+				{
+					vectNormal[0] = -vectNormal[0];
+					vectNormal[1] = -vectNormal[1];
+					vectNormal[2] = -vectNormal[2];
+				}
+
+
+				Point tmpP = Point(graph->getFaceList()->at(i)->getPoints()[j].x,
+					graph->getFaceList()->at(i)->getPoints()[j].y,
+					graph->getFaceList()->at(i)->getPoints()[j].z, vectNormal[0], vectNormal[1], vectNormal[2]);
+
+				graph->getFaceList()->at(i)->setPointInd(j, tmpP);
+
+			}
+		}
+
+
+	}
 };
