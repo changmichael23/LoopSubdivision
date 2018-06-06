@@ -92,8 +92,8 @@ bool Initialize()
 	colore[2] = 1.0;
 	colore[3] = 1.0;
 
-	std::vector<Point> centerPoints3D = createRandomPoints(50);
-	//std::vector<Point> centerPoints3D;
+	//std::vector<Point> centerPoints3D = createRandomPoints(50);
+	std::vector<Point> centerPoints3D;
 	// Tetraede
 	/*centerPoints3D.push_back(Point(250, 0, 250));
 	centerPoints3D.push_back(Point(-250, 0, 250));
@@ -102,14 +102,14 @@ bool Initialize()
 
 
 	// Cube 
-	/*centerPoints3D.push_back(Point(-250, -250, 0));
+	centerPoints3D.push_back(Point(-250, -250, 0));
 	centerPoints3D.push_back(Point(-251, +250, 2));
 	centerPoints3D.push_back(Point(+250, -252, 1));
 	centerPoints3D.push_back(Point(250, 255, 3));
 	centerPoints3D.push_back(Point(-252, -253, -504));
 	centerPoints3D.push_back(Point(-250, +256, -503));
 	centerPoints3D.push_back(Point(+251, -253, -502));
-	centerPoints3D.push_back(Point(254, 252, -501));*/
+	centerPoints3D.push_back(Point(254, 252, -501));
 
 
 	Graph * tmpGraph = new Graph();
@@ -121,7 +121,13 @@ bool Initialize()
 	Graph * tmpGraph1 = Graph::duplicateGraph(*testEnv.getGraph());
 	//tmpFace = tmpGraph1->getFaceList();
 	Graph tmpGraph2 = Loop::LoopSubdivision(*tmpGraph1);
-	tmpFace = tmpGraph2.getFaceList();
+	//tmpFace = tmpGraph2.getFaceList();
+
+
+
+	Graph tmpGraph4 = Loop::LoopSubdivision(tmpGraph2);
+	tmpFace = tmpGraph4.getFaceList();
+
 	for (int i = 0; i < tmpFace->size(); i++)
 	{
 		tmpVectorPoints.push_back(tmpFace->at(i)->getSummitsConnected()->at(0)->getPoint());
