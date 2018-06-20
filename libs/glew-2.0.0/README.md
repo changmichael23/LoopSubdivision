@@ -28,12 +28,11 @@ Snapshots may contain new features, bug-fixes or new OpenGL extensions ahead of 
 [glew-20160708.tgz](http://sourceforge.net/projects/glew/files/glew/snapshots/glew-20160708.tgz/download)
 *GLEW 2.0.0 RC: Core context, EGL support, no MX*
 
-[glew-20160402.tgz](http://sourceforge.net/projects/glew/files/glew/snapshots/glew-20160402.tgz/download)
-*GLEW 2.0.0 RC: Core context, EGL support, no MX*
-
 ## Build
 
-From a downloaded tarball or zip archive:
+It is highly recommended to build from a tgz or zip release snapshot.
+The code generation workflow is a complex brew of gnu make, perl and python, that works best on Linux or Mac.
+For most end-users of GLEW the official releases are the best choice, with first class support.
 
 ### Linux and Mac
 
@@ -41,9 +40,9 @@ From a downloaded tarball or zip archive:
 
 ##### Install build tools
 
-Debian/Ubuntu/Mint:    `$ sudo apt-get install build-essential libxmu-dev libxi-dev libgl-dev libosmesa-dev git`
+Debian/Ubuntu/Mint:    `$ sudo apt-get install build-essential libxmu-dev libxi-dev libgl-dev libosmesa-dev`
 
-RedHat/CentOS/Fedora:  `$ sudo yum install libXmu-devel libXi-devel libGL-devel git`
+RedHat/CentOS/Fedora:  `$ sudo yum install libXmu-devel libXi-devel libGL-devel`
 
 ##### Build
 
@@ -51,9 +50,11 @@ RedHat/CentOS/Fedora:  `$ sudo yum install libXmu-devel libXi-devel libGL-devel 
 	$ sudo make install
 	$ make clean
 
-Targets:    `all, glew.lib, glew.bin, clean, install, uninstall`
+Targets:    `all, glew.lib (sub-targets: glew.lib.shared, glew.lib.static), glew.bin, clean, install, uninstall`
 
 Variables:  `SYSTEM=linux-clang, GLEW_DEST=/usr/local, STRIP=`
+
+_Note: may need to make **auto** folder_
 
 #### Using cmake
 
@@ -61,9 +62,9 @@ Variables:  `SYSTEM=linux-clang, GLEW_DEST=/usr/local, STRIP=`
 
 ##### Install build tools
 
-Debian/Ubuntu/Mint:   `$ sudo apt-get install build-essential libXmu-dev libXi-dev libgl-dev git cmake`
+Debian/Ubuntu/Mint:   `$ sudo apt-get install build-essential libXmu-dev libXi-dev libgl-dev cmake`
 
-RedHat/CentOS/Fedora: `$ sudo yum install libXmu-devel libXi-devel libGL-devel git cmake`
+RedHat/CentOS/Fedora: `$ sudo yum install libXmu-devel libXi-devel libGL-devel cmake`
 
 ##### Build
 
@@ -150,7 +151,7 @@ OpenGL implementation and GLEW support for that.  Please include the output of
 
 ## Code Generation
 
-A Unix or Mac environment is neded for building GLEW from scratch to
+A Unix or Mac environment is needed for building GLEW from scratch to
 include new extensions, or customize the code generation. The extension
 data is regenerated from the top level source directory with:
 
