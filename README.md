@@ -1,5 +1,8 @@
 # LoopSubdivision
+
 Mesh approximation with loop type subdivision made in C++ and OpenGL.
+
+![](LoopSubdivise.png)
 
 ## Dependencies
 
