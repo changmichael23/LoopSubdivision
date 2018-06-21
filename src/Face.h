@@ -1,6 +1,6 @@
 #pragma once
-#include "Point.hpp"
-#include "Colore.hpp"
+#include "Point.h"
+#include "Colore.h"
 #include <vector>
 #include <iostream>
 

@@ -1,8 +1,8 @@
 #include <math.h>
 #include <vector>
-#include "Camera.hpp"
-#include "Controller.hpp"
-#include "EnvInc.hpp"
+#include "Camera.h"
+#include "Controller.h"
+#include "EnvInc.h"
 #ifdef _MSC_VER
 #pragma comment(lib, "opengl32.lib")
 #include <windows.h>

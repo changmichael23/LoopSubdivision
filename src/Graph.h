@@ -1,5 +1,5 @@
 #pragma once
-#include "Summit.hpp"
+#include "Summit.h"
 
 class Graph {
 private:

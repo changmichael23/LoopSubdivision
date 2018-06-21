@@ -3,8 +3,8 @@
 class Face;
 class Edge;
 
-#include "Face.hpp"
-#include "Edge.hpp"
+#include "Face.h"
+#include "Edge.h"
 class Summit {
 	// each point connected to edges
 private:
