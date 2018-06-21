@@ -78,6 +78,10 @@ float * structToTabColor(std::vector<Point> newPoints, std::vector<Colore> c)
 			tabP[i + 8] = RandomFloat(0.5, 1);
 		}
 
+		tabP[i + 6] = RandomFloat(0.5, 1);
+		tabP[i + 7] = RandomFloat(0.5, 1);
+		tabP[i + 8] = RandomFloat(0.5, 1);
+
 		j++;
 	}
 

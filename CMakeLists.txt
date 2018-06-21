@@ -23,12 +23,17 @@ source_group ("shaders" FILES ${PROJECT_SHADERS})
 source_group ("sources" FILES ${PROJECT_SOURCES})
 source_group ("vendors" FILES ${VENDORS_SOURCES})
 
-link_directories(${CMAKE_SOURCE_DIR}/libs/freeglut-3.0.0/build/lib/Debug)
-link_directories(${CMAKE_SOURCE_DIR}/libs/glew-2.0.0/build/lib/Debug)
+#link_directories(${CMAKE_SOURCE_DIR}/libs/freeglut-3.0.0/build/lib/Debug)
+#link_directories(${CMAKE_SOURCE_DIR}/libs/glew-2.0.0/build/lib/Debug)
 
-set(ENV{PATH} "${CMAKE_SOURCE_DIR}/libs/glew-2.0.0/build/bin/Debug;${CMAKE_SOURCE_DIR}/libs/freeglut-3.0.0/build/bin/Debug")
+link_directories(${CMAKE_CURRENT_BINARY_DIR}/lib/Debug)
+
+#set(ENV{PATH} "${CMAKE_SOURCE_DIR}/libs/glew-2.0.0/build/bin/Debug;${CMAKE_SOURCE_DIR}/libs/freeglut-3.0.0/build/bin/Debug")
+set(ENV{PATH} "${CMAKE_CURRENT_BINARY_DIR}/bin/Debug")
 
 add_executable (${PROJECT_NAME} ${PROJECT_SOURCES} ${PROJECT_HEADERS}
                                 ${PROJECT_SHADERS} ${PROJECT_CONFIGS}
                                 ${VENDORS_SOURCES})
 
+add_subdirectory(libs/freeglut-3.0.0)
+add_subdirectory(libs/glew-2.0.0)
